@@ -1,0 +1,11 @@
+{% extends "base/main.html" %}
+{% block content %}
+<form method="post" action="">
+    {% csrf_token %}
+    <p>Confirm, do you wnat to delete this task?</p>
+    <strong><p>{{task.title}}</p></strong>
+    <p>Due Date: <strong>{{task.due_date}}</strong> </p>
+    <input type="submit" class="btn btn-danger" value="Confirm">
+    <a class="btn btn-success float-right" href="{% url 'tasks' %}">Abort</a>
+</form>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base/main.html" %}
+{% block content %}
+<h3>Task Form</h3>
+<div class="form-body">
+  <form method="post" action="">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="fieldWrapper">
+      {{ field.errors }}
+      <strong>{{ field.label_tag }}</strong>
+      <br>
+      {{ field }}
+    </div>
+    {% endfor %}
+    <hr>
+    <input class="btn btn-info" type="submit" value="Submit">
+    <a class="btn btn-success float-right" href="{% url 'tasks' %}">Abort</a>
+  </form>
+</div>
+{% endblock content %}

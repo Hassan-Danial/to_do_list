@@ -1,0 +1,54 @@
+{% extends "base/main.html" %}
+{% block content %}
+<style>
+  a {
+    font-weight: 600;
+  }
+</style>
+<div class="header-bar">
+  <div>
+    <h3 style="margin:0">You have <i>{{count}}</i> incomplete task{{ count|pluralize:"s" }}</h3>
+  </div>
+</div>
+<div id="tasklist" class="task-items">
+  <div id="search-add">
+    <form method="GET" style="display: flex;">
+      <input type='text' name='search-area' placeholder="Search your task" value="{{searched}}">
+      <input class="button" type="submit" value='Search'>
+      {% if searched %}
+      <a class="btn btn-info btn-sm float-right" href="{% url 'tasks' %}">Back</a>
+      {% endif %}
+    </form>
+  </div>
+  {% if searched %}
+  <hr>
+  {% else %}
+  <hr>
+  <a type="button" class="btn btn-primary btn-sm float-right" href="{% url 'task-create' %}">Add Task</a>
+  <h5 style="font-size: 25px;">Tasks</h5>
+  <hr>
+  {% endif %}
+
+  {% for task in tasks %}
+  <div class="task-wrapper" data-position="{{task.pk}}">
+    {% if task.completed %}
+    <div class="task-complete-icon">
+      <td><a type="button" class="btn btn-danger btn-sm float-right" href="{% url 'task-delete' task.id %}">Delete</a></td>
+      <td><a type="button" class="btn btn-secondary btn-sm float-right" style="margin-right: 7px;" href="{% url 'task-update' task.id %}">Update</a></td>
+      <li><i><s><a href="{% url 'task' task.id %}">{{task.title}}</a></s></i></li>
+      <hr>
+    </div>
+    {% else %}
+    <div class="task-incomplete-icon">
+      <td><a type="button" class="btn btn-danger btn-sm float-right" href="{% url 'task-delete' task.id %}">Delete</a></td>
+      <td><a type="button" class="btn btn-secondary btn-sm float-right" style="margin-right: 7px;" href="{% url 'task-update' task.id %}">Update</a></td>
+      <li><a href="{% url 'task' task.id %}">{{task.title}}</a></li>
+      <hr>
+    </div>
+    {% endif %}
+  </div>
+  {% empty %}
+  <h2>No Tasks</h2>
+  {% endfor %}
+</div>
+{% endblock content %}

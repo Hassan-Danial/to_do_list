@@ -1,0 +1,12 @@
+<style>
+</style>
+{% extends "base/main.html" %}
+{% block content %}
+<h5>Task Name:</h5>
+<strong><strong>{{tasks.title}}</strong></strong>
+<hr>
+<h5>Description of Task:</h5>
+<i>{{tasks.content}}</i>
+<hr>
+<a class="btn btn-info btn-sm float-left" href="{% url 'tasks' %}">Back</a>
+{% endblock content %}
